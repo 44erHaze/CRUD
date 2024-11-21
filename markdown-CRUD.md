@@ -95,5 +95,4 @@ async function deleteUser(userId) {
 ### Nützliche Links
 
 1. [JSON Placeholder API](https://jsonplaceholder.typicode.com)
-2. [Axios Dokumentation](https://axios-http.com/docs/intro)
-3. [Bootstrap Dokumentation](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+2. [Bootstrap Dokumentation](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
