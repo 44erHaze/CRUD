@@ -8,9 +8,8 @@ const feedback = document.getElementById("feedback");
 // Fetch and display users (Read)
 async function fetchUsers() {
   try {
-    // API GET request
-    const response = await axios.get(apiUrl);
-    const users = response.data;
+    const response = await fetch(apiUrl);
+    const users = await response.json();
 
     // Populate table
     userTable.innerHTML = users
@@ -34,29 +33,37 @@ async function fetchUsers() {
   }
 }
 
+// Delete a user (Delete)
 async function deleteUser(id) {
   try {
-    // Refresh the user list first
+    // API DELETE request
+    await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+
+    // Refresh the user list
     fetchUsers();
 
-    // API DELETE request
-    await axios.delete(`${apiUrl}/${id}`);
-    
-    // Append success message below the user list
+    // Append success message below the user list and keep it on screen
     feedback.innerHTML += `<div class="alert alert-success">User with ID ${id} deleted successfully (simulation).</div>`;
-    
   } catch (error) {
+    feedback.innerHTML += `<div class="alert alert-danger">Error deleting user: ${error.message}</div>`;
   }
-  
-  // Create a new user (POST)
+}
+
+// Create a new user (POST)
 async function createUser(userData) {
   try {
-    const response = await axios.post(apiUrl, userData);
-    feedback.innerHTML += `<div class="alert alert-success">User created successfully with ID ${response.data.id}.</div>`;
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    const data = await response.json();
+    feedback.innerHTML += `<div class="alert alert-success">User created successfully with ID ${data.id}.</div>`;
     fetchUsers(); // Refresh user list
   } catch (error) {
     feedback.innerHTML += `<div class="alert alert-danger">Error creating user: ${error.message}</div>`;
   }
 }
-}
-
