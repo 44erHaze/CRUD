@@ -93,5 +93,3 @@ crud-tutorial/
 
 Dieses Projekt zeigt eine einfache CRUD-Implementierung mit **JavaScript** und **Postman** für das Testen der API. Es eignet sich ideal für Anfänger, um REST-APIs zu verstehen und mit ihnen zu arbeiten.
 ``` 
-
-Falls Änderungen notwendig sind, sag einfach Bescheid! 😊
