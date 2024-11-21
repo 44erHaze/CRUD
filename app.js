@@ -1,18 +1,18 @@
 // API URL
 const apiUrl = "https://jsonplaceholder.typicode.com/users";
 
-// Elemente aus HTML referenzieren
+// Reference HTML elements
 const userTable = document.getElementById("userTable");
 const feedback = document.getElementById("feedback");
 
-// Benutzer anzeigen (Read)
+// Fetch and display users (Read)
 async function fetchUsers() {
   try {
-    // API GET-Aufruf
+    // API GET request
     const response = await axios.get(apiUrl);
     const users = response.data;
 
-    // Tabelle füllen
+    // Populate table
     userTable.innerHTML = users
       .map(
         (user) => `
@@ -21,30 +21,41 @@ async function fetchUsers() {
           <td>${user.name}</td>
           <td>${user.username}</td>
           <td>${user.email}</td>
-          <td><button class="btn btn-primary" onclick="deleteUser(${user.id})">Löschen</button></td>
+          <td><button class="btn btn-primary" onclick="deleteUser(${user.id})">Delete</button></td>
         </tr>
       `
       )
       .join("");
 
-    feedback.innerHTML = `<div class="alert alert-success">Benutzer erfolgreich geladen.</div>`;
+    feedback.innerHTML = `<div class="alert alert-success">Users loaded successfully.</div>`;
   } catch (error) {
-    // Fehlerbehandlung
-    feedback.innerHTML = `<div class="alert alert-danger">Fehler beim Laden der Benutzer: ${error.message}</div>`;
+    // Handle errors
+    feedback.innerHTML = `<div class="alert alert-danger">Error loading users: ${error.message}</div>`;
   }
 }
 
-// Benutzer löschen (Delete)
+/// Delete a user (Delete)
 async function deleteUser(id) {
   try {
-    // API DELETE-Aufruf
+    // API DELETE request
     await axios.delete(`${apiUrl}/${id}`);
-    feedback.innerHTML = `<div class="alert alert-success">Benutzer mit ID ${id} erfolgreich gelöscht (Simulation).</div>`;
+    feedback.innerHTML = `<div class="alert alert-success">User with ID ${id} deleted successfully (simulation).</div>`;
 
-    // Tabelle aktualisieren
+    // Make the message last longer (e.g., 5 seconds)
+    setTimeout(() => {
+      feedback.innerHTML = ""; // Clear the feedback after 5 seconds
+    }, 5000);
+
+    // Refresh the user table
     fetchUsers();
   } catch (error) {
-    // Fehlerbehandlung
-    feedback.innerHTML = `<div class="alert alert-danger">Fehler beim Löschen der Benutzer: ${error.message}</div>`;
+    // Handle errors
+    feedback.innerHTML = `<div class="alert alert-danger">Error deleting user: ${error.message}</div>`;
+
+    // Make the error message last longer (e.g., 5 seconds)
+    setTimeout(() => {
+      feedback.innerHTML = ""; // Clear the feedback after 5 seconds
+    }, 5000);
   }
 }
+
