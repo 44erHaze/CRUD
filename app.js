@@ -46,7 +46,17 @@ async function deleteUser(id) {
     feedback.innerHTML += `<div class="alert alert-success">User with ID ${id} deleted successfully (simulation).</div>`;
     
   } catch (error) {
-    
   }
+  
+  // Create a new user (POST)
+async function createUser(userData) {
+  try {
+    const response = await axios.post(apiUrl, userData);
+    feedback.innerHTML += `<div class="alert alert-success">User created successfully with ID ${response.data.id}.</div>`;
+    fetchUsers(); // Refresh user list
+  } catch (error) {
+    feedback.innerHTML += `<div class="alert alert-danger">Error creating user: ${error.message}</div>`;
+  }
+}
 }
 
