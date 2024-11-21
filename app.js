@@ -34,19 +34,19 @@ async function fetchUsers() {
   }
 }
 
-/// Delete a user (Delete)
 async function deleteUser(id) {
   try {
+    // Refresh the user list first
+    fetchUsers();
+
     // API DELETE request
     await axios.delete(`${apiUrl}/${id}`);
-    feedback.innerHTML = `<div class="alert alert-success">User with ID ${id} deleted successfully (simulation).</div>`;
-
-
-    // Refresh the user table
-    fetchUsers();
+    
+    // Append success message below the user list
+    feedback.innerHTML += `<div class="alert alert-success">User with ID ${id} deleted successfully (simulation).</div>`;
+    
   } catch (error) {
-    // Handle errors
-    feedback.innerHTML = `<div class="alert alert-danger">Error deleting user: ${error.message}</div>`;
+    
   }
 }
 
