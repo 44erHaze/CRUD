@@ -41,21 +41,12 @@ async function deleteUser(id) {
     await axios.delete(`${apiUrl}/${id}`);
     feedback.innerHTML = `<div class="alert alert-success">User with ID ${id} deleted successfully (simulation).</div>`;
 
-    // Make the message last longer (e.g., 5 seconds)
-    setTimeout(() => {
-      feedback.innerHTML = ""; // Clear the feedback after 5 seconds
-    }, 5000);
 
     // Refresh the user table
     fetchUsers();
   } catch (error) {
     // Handle errors
     feedback.innerHTML = `<div class="alert alert-danger">Error deleting user: ${error.message}</div>`;
-
-    // Make the error message last longer (e.g., 5 seconds)
-    setTimeout(() => {
-      feedback.innerHTML = ""; // Clear the feedback after 5 seconds
-    }, 5000);
   }
 }
 
